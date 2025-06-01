@@ -11,6 +11,14 @@ body {
     padding: 2rem;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin-bottom: 2rem;
+}
+
+.bills-container {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 .form-group {
@@ -45,4 +53,42 @@ button {
 
 button:hover {
     background-color: #45a049;
+}
+
+.bill-card {
+    background-color: #f8f9fa;
+    padding: 1rem;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.bill-card .amount {
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+.bill-card .due-date {
+    color: #7f8c8d;
+    font-size: 0.9rem;
+}
+
+.bill-card .delete-btn {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    font-size: 0.8rem;
+}
+
+.bill-card .delete-btn:hover {
+    background-color: #c0392b;
+}
+
+.bill-card .delete-btn:active {
+    background-color: #952f20;
 }
