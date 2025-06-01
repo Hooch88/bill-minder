@@ -1,12 +1,13 @@
 document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('billForm');
     const billsList = document.getElementById('billsList');
+    const totalAmountElement = document.getElementById('totalAmount');
     
     if (form) {
         form.addEventListener('submit', handleFormSubmit);
     }
     
-    // Load and display existing bills
+    // Load and display existing bills and update total
     loadBills();
 });
 
@@ -17,7 +18,7 @@ function handleFormSubmit(e) {
         name: document.getElementById('name').value,
         amount: parseFloat(document.getElementById('amount').value),
         dueDate: document.getElementById('dueDate').value,
-        id: Date.now() // Using timestamp as unique ID
+        id: Date.now()
     };
 
     // Validate input
@@ -34,33 +35,30 @@ function handleFormSubmit(e) {
     document.getElementById('amount').value = '';
     document.getElementById('dueDate').value = '';
     
-    // Update display
+    // Update display and total
     loadBills();
+    updateTotalAmount();
 }
 
 function saveBill(bill) {
-    // Get existing bills from localStorage
     let bills = JSON.parse(localStorage.getItem('bills') || '[]');
-    
-    // Add new bill
     bills.push(bill);
-    
-    // Save back to localStorage
     localStorage.setItem('bills', JSON.stringify(bills));
 }
 
 function loadBills() {
-    // Get bills from localStorage
     const bills = JSON.parse(localStorage.getItem('bills') || '[]');
+    const billsList = document.getElementById('billsList');
     
-    // Clear existing list
     billsList.innerHTML = '';
     
-    // Add each bill to the list
     bills.forEach(bill => {
         const billCard = createBillCard(bill);
         billsList.appendChild(billCard);
     });
+    
+    // Update total amount after loading bills
+    updateTotalAmount();
 }
 
 function createBillCard(bill) {
@@ -85,20 +83,25 @@ function createBillCard(bill) {
     return card;
 }
 
+function updateTotalAmount() {
+    const bills = JSON.parse(localStorage.getItem('bills') || '[]');
+    const total = bills.reduce((sum, bill) => sum + parseFloat(bill.amount), 0);
+    const totalAmountElement = document.getElementById('totalAmount');
+    
+    if (totalAmountElement) {
+        totalAmountElement.textContent = `$${total.toFixed(2)}`;
+    }
+}
+
 function deleteBill(id) {
     if (!confirm('Are you sure you want to delete this bill?')) {
         return;
     }
     
-    // Get existing bills
     let bills = JSON.parse(localStorage.getItem('bills') || '[]');
-    
-    // Filter out the bill with the matching ID
     bills = bills.filter(bill => bill.id !== id);
     
-    // Save updated list
     localStorage.setItem('bills', JSON.stringify(bills));
-    
-    // Update display
     loadBills();
+    updateTotalAmount();
 }

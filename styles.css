@@ -92,3 +92,27 @@ button:hover {
 .bill-card .delete-btn:active {
     background-color: #952f20;
 }
+
+.summary-container {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin-bottom: 2rem;
+}
+
+.summary-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.summary-total span:first-child {
+    color: #7f8c8d;
+}
+
+.summary-total span#totalAmount {
+    color: #2c3e50;
+}
