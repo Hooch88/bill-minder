@@ -3,43 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Bill Tracker - Bill Entry Form</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>My Bill Tracker - Modern & Professional</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-    <h1>My Bill Tracker</h1>
-    <div class="form-container">
-        <h2>Bill Entry Form</h2>
-        <p>Enter your bill details below:</p>
-        <form id="billForm">
-            <div class="form-group">
-                <label for="name">Bill Name</label>
-                <input type="text" id="name" name="name" required placeholder="Enter bill name">
-            </div>
-            <div class="form-group">
-                <label for="amount">Amount</label>
-                <input type="number" id="amount" name="amount" required step="0.01" placeholder="Enter amount">
-            </div>
-            <div class="form-group">
-                <label for="dueDate">Due Date</label>
-                <input type="date" id="dueDate" name="dueDate" required>
-            </div>
-            <button type="submit">Submit Bill</button>
-        </form>
-    </div>
+<body class="bg-slate-100 text-slate-800 min-h-screen flex flex-col items-center pt-8 sm:pt-12">
 
-    <div class="summary-container">
-        <h2>Bills Summary</h2>
-        <div class="summary-total">
-            <span>Total Amount:</span>
-            <span id="totalAmount">$0.00</span>
-        </div>
-    </div>
+    <header class="mb-8 sm:mb-10 text-center">
+        <h1 class="text-4xl sm:text-5xl font-bold text-sky-600">My Bill Tracker</h1>
+    </header>
 
-    <div class="bills-container">
-        <h2>Saved Bills</h2>
-        <div id="billsList"></div>
-    </div>
+    <main class="w-full max-w-4xl px-4 space-y-8">
+        <!-- Bill Entry Form -->
+        <section class="bg-white p-6 sm:p-8 rounded-xl shadow-lg">
+            <h2 class="text-2xl sm:text-3xl font-semibold mb-6 text-slate-700">Enter New Bill</h2>
+            <form id="billForm" class="space-y-6">
+                <div>
+                    <label for="name" class="block text-sm font-medium text-slate-600 mb-1">Bill Name</label>
+                    <input type="text" id="name" name="name" required placeholder="e.g., Netflix Subscription" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-sky-500 transition duration-150 ease-in-out shadow-sm">
+                </div>
+                <div>
+                    <label for="amount" class="block text-sm font-medium text-slate-600 mb-1">Amount ($)</label>
+                    <input type="number" id="amount" name="amount" required step="0.01" placeholder="e.g., 15.99" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-sky-500 transition duration-150 ease-in-out shadow-sm">
+                </div>
+                <div>
+                    <label for="dueDate" class="block text-sm font-medium text-slate-600 mb-1">Due Date</label>
+                    <input type="date" id="dueDate" name="dueDate" required class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-sky-500 transition duration-150 ease-in-out shadow-sm">
+                </div>
+                <button type="submit" class="w-full bg-sky-600 hover:bg-sky-700 text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2 transition duration-150 ease-in-out">Add Bill</button>
+            </form>
+        </section>
+
+        <!-- Bills Summary -->
+        <section class="bg-white p-6 sm:p-8 rounded-xl shadow-lg">
+            <h2 class="text-2xl sm:text-3xl font-semibold mb-6 text-slate-700">Bills Summary</h2>
+            <div class="flex justify-between items-center text-lg sm:text-xl">
+                <span class="font-medium text-slate-600">Total Amount Due:</span>
+                <span id="totalAmount" class="font-bold text-sky-600">$0.00</span>
+            </div>
+        </section>
+
+        <!-- Saved Bills -->
+        <section class="bg-white p-6 sm:p-8 rounded-xl shadow-lg">
+            <h2 class="text-2xl sm:text-3xl font-semibold mb-6 text-slate-700">Saved Bills</h2>
+            <div id="billsList" class="space-y-4">
+                <!-- Bills will be dynamically inserted here by scripts.js -->
+                <!-- Example of how a bill might look (for styling reference, actual content is dynamic) -->
+                <!-- 
+                <div class="p-4 border border-slate-200 rounded-lg shadow-sm flex justify-between items-center">
+                    <div>
+                        <h3 class="font-semibold text-slate-700">Sample Bill Name</h3>
+                        <p class="text-sm text-slate-500">Due: YYYY-MM-DD</p>
+                    </div>
+                    <span class="font-medium text-lg text-red-500">$XX.XX</span>
+                </div>
+                -->
+            </div>
+        </section>
+    </main>
+
+    <footer class="text-center py-8 mt-8 sm:mt-12 text-slate-500 text-sm">
+        <p>&copy; <span id="copyrightYear"></span> My Bill Tracker. All rights reserved.</p>
+    </footer>
 
     <script src="scripts.js"></script>
 </body>

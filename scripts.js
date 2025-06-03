@@ -9,6 +9,12 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Load and display existing bills and update total
     loadBills();
+
+    // Set current year in footer
+    const yearSpan = document.getElementById('copyrightYear');
+    if (yearSpan) {
+        yearSpan.textContent = new Date().getFullYear();
+    }
 });
 
 function handleFormSubmit(e) {
@@ -63,23 +69,45 @@ function loadBills() {
 
 function createBillCard(bill) {
     const card = document.createElement('div');
-    card.className = 'bill-card';
-    
+    card.className = 'p-4 bg-white border border-slate-200 rounded-lg shadow-sm flex flex-col sm:flex-row justify-between items-start sm:items-center space-y-3 sm:space-y-0 mb-4'; // Added mb-4 for spacing if billsList doesn't have space-y
+
+    // Bill Details Section (Name and Due Date)
+    const detailsDiv = document.createElement('div');
+    detailsDiv.className = 'flex-grow'; // Allows this section to take available space
+
+    const nameElement = document.createElement('h3');
+    nameElement.className = 'font-semibold text-slate-800 text-lg';
+    nameElement.textContent = bill.name;
+
+    const dueDateElement = document.createElement('p');
+    dueDateElement.className = 'text-sm text-slate-500';
+    // Ensure dueDate is treated as local date to avoid timezone issues
+    const dateParts = bill.dueDate.split('-');
+    const localDate = new Date(dateParts[0], dateParts[1] - 1, dateParts[2]);
+    dueDateElement.textContent = `Due: ${localDate.toLocaleDateString()}`;
+
+    detailsDiv.appendChild(nameElement);
+    detailsDiv.appendChild(dueDateElement);
+
+    // Action Section (Amount and Delete Button)
+    const actionsDiv = document.createElement('div');
+    actionsDiv.className = 'flex flex-col sm:flex-row items-end sm:items-center space-y-2 sm:space-y-0 sm:space-x-4 mt-3 sm:mt-0';
+
+    const amountElement = document.createElement('span');
+    amountElement.className = 'font-bold text-xl text-sky-600';
+    amountElement.textContent = `$${parseFloat(bill.amount).toFixed(2)}`;
+
     const deleteBtn = document.createElement('button');
-    deleteBtn.className = 'delete-btn';
+    deleteBtn.className = 'bg-red-500 hover:bg-red-600 text-white font-semibold py-1.5 px-3 rounded-md text-sm shadow-sm hover:shadow transition duration-150 ease-in-out';
     deleteBtn.textContent = 'Delete';
     deleteBtn.onclick = () => deleteBill(bill.id);
-    
-    const billInfo = document.createElement('div');
-    billInfo.innerHTML = `
-        <div class="bill-name">${bill.name}</div>
-        <div class="amount">$${bill.amount.toFixed(2)}</div>
-        <div class="due-date">Due: ${new Date(bill.dueDate).toLocaleDateString()}</div>
-    `;
-    
-    card.appendChild(billInfo);
-    card.appendChild(deleteBtn);
-    
+
+    actionsDiv.appendChild(amountElement);
+    actionsDiv.appendChild(deleteBtn);
+
+    card.appendChild(detailsDiv);
+    card.appendChild(actionsDiv);
+
     return card;
 }
 
